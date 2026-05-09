@@ -132,7 +132,39 @@ else:
             st.markdown("**Steps:**")
             st.write(recipe.get("steps", ""))
 
-            if st.button("🗑️ Delete recipe", key=f"del_recipe_{idx}"):
-                recipes.remove(recipe)
-                save_recipes(recipes)
-                st.rerun()
+            col_edit, col_delete = st.columns(2)
+
+            with col_delete:
+                if st.button("🗑️ Delete recipe", key=f"del_recipe_{idx}"):
+                    recipes.remove(recipe)
+                    save_recipes(recipes)
+                    st.rerun()
+
+            with col_edit:
+                if st.button("✏️ Edit recipe", key=f"edit_recipe_{idx}"):
+                    st.session_state[f"editing_{idx}"] = True
+
+            if st.session_state.get(f"editing_{idx}", False):
+                new_name = st.text_input("Recipe name", value=recipe["name"], key=f"edit_name_{idx}")
+                new_cuisine = st.selectbox("Cuisine", [
+                    "Indian", "Italian", "Indo-Chinese", "Continental",
+                    "Mexican", "Middle Eastern", "Other"
+                ], index=["Indian", "Italian", "Indo-Chinese", "Continental",
+                          "Mexican", "Middle Eastern", "Other"].index(recipe.get("cuisine", "Indian")),
+                                           key=f"edit_cuisine_{idx}")
+                new_ingredients = st.text_area("Ingredients", value=recipe.get("ingredients", ""),
+                                               key=f"edit_ing_{idx}")
+                new_steps = st.text_area("Steps", value=recipe.get("steps", ""), key=f"edit_steps_{idx}")
+                new_notes = st.text_area("Notes", value=recipe.get("notes", ""), key=f"edit_notes_{idx}")
+
+                if st.button("💾 Save changes", key=f"save_edit_{idx}"):
+                    actual_idx = recipes.index(recipe)
+                    recipes[actual_idx]["name"] = new_name
+                    recipes[actual_idx]["cuisine"] = new_cuisine
+                    recipes[actual_idx]["ingredients"] = new_ingredients
+                    recipes[actual_idx]["steps"] = new_steps
+                    recipes[actual_idx]["notes"] = new_notes
+                    save_recipes(recipes)
+                    st.session_state[f"editing_{idx}"] = False
+                    st.success("✅ Recipe updated!")
+                    st.rerun()
