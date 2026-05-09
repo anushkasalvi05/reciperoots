@@ -23,19 +23,14 @@ page_header("📖", "Recipes", "Save recipes from Instagram, YouTube, or your fa
 recipes = load_recipes()
 
 # --- Add new recipe ---
-with st.expander("➕ Add new recipe", expanded=False):
+with st.expander("➕ Add new recipe", expanded=True):
     source_type = st.radio(
         "Where is this recipe from?",
         ["📸 Instagram", "▶️ YouTube", "👩‍🍳 Family / My Own"],
         horizontal=True
     )
 
-    if source_type in ["📸 Instagram", "▶️ YouTube"]:
-        url = st.text_input("Paste the link here")
-        if url and st.button("🔍 Fetch Recipe with AI"):
-            with st.spinner("Fetching recipe..."):
-                # Placeholder for Claude API call
-                st.info("🚧 AI recipe fetching coming soon! For now, fill in the details manually below.")
+    st.caption("Copy the caption from social media and paste it into the ingredients and steps fields below.")
 
     st.markdown("#### Recipe details")
     col1, col2 = st.columns(2)
