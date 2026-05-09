@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import os
 from datetime import date, timedelta
+from utils.theme import apply_theme, page_header
 
 MEAL_PLAN_FILE = "data/meal_plan.json"
 RECIPES_FILE = "data/recipes.json"
@@ -25,9 +26,8 @@ def get_week_dates():
     return [friday + timedelta(days=i) for i in range(7)]
 
 st.set_page_config(page_title="Meal Plan", page_icon="📅", layout="wide")
-st.title("📅 Meal Plan")
-st.caption("Plan your meals for the week — Friday to Thursday")
-st.markdown("---")
+apply_theme()
+page_header("📅", "Meal Plan", "Plan your meals for the week — Friday to Thursday")
 
 recipes = load_json(RECIPES_FILE)
 meal_plan = load_json(MEAL_PLAN_FILE)

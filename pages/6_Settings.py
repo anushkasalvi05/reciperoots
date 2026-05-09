@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+from utils.theme import apply_theme, page_header
 
 SETTINGS_FILE = "data/settings.json"
 
@@ -20,9 +21,8 @@ def save_settings(settings):
         json.dump(settings, f, indent=2)
 
 st.set_page_config(page_title="Settings", page_icon="⚙️", layout="wide")
-st.title("⚙️ Settings")
-st.caption("Customise RecipeRoots to your taste")
-st.markdown("---")
+apply_theme()
+page_header("⚙️", "Settings", "Customise RecipeRoots to your taste")
 
 settings = load_settings()
 

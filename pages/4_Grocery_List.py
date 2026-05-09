@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+from utils.theme import apply_theme, page_header
 
 MEAL_PLAN_FILE = "data/meal_plan.json"
 RECIPES_FILE = "data/recipes.json"
@@ -19,9 +20,8 @@ def save_json(filepath, data):
         json.dump(data, f, indent=2)
 
 st.set_page_config(page_title="Grocery List", page_icon="🛒", layout="wide")
-st.title("🛒 Grocery List")
-st.caption("Auto-generated from your meal plan and pantry")
-st.markdown("---")
+apply_theme()
+page_header("🛒", "Grocery List", "Auto-generated from your meal plan and pantry")
 
 meal_plan = load_json(MEAL_PLAN_FILE)
 recipes = load_json(RECIPES_FILE)

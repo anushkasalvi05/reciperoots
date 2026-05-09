@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+from utils.theme import apply_theme, page_header
 
 RECIPES_FILE = "data/recipes.json"
 
@@ -16,9 +17,8 @@ def save_recipes(recipes):
         json.dump(recipes, f, indent=2)
 
 st.set_page_config(page_title="Recipes", page_icon="📖", layout="wide")
-st.title("📖 Recipes")
-st.caption("Save recipes from Instagram, YouTube, or your family kitchen")
-st.markdown("---")
+apply_theme()
+page_header("📖", "Recipes", "Save recipes from Instagram, YouTube, or your family kitchen")
 
 recipes = load_recipes()
 

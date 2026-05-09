@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "name": "Apple",
+    "quantity": 1.0,
+    "unit": "pcs",
+    "category": "Fruits",
+    "status": "\u2705 In Stock"
+  },
+  {
+    "name": "oats",
+    "quantity": 500.0,
+    "unit": "g",
+    "category": "Grains & Pulses",
+    "status": "\u2705 In Stock"
+  }
+]

@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+from utils.theme import apply_theme, page_header
 
 PANTRY_FILE = "data/pantry.json"
 
@@ -16,14 +17,13 @@ def save_pantry(items):
         json.dump(items, f, indent=2)
 
 st.set_page_config(page_title="Pantry", page_icon="🥫", layout="wide")
-st.title("🥫 Pantry")
-st.caption("Track everything you have at home")
-st.markdown("---")
+apply_theme()
+page_header("🥫", "Pantry", "Track everything you have at home")
 
 items = load_pantry()
 
 # --- Add new item ---
-with st.expander("➕ Add new item", expanded=False):
+with st.expander("➕ Add new item", expanded=True):
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         name = st.text_input("Item name", placeholder="e.g. Oats")
@@ -55,7 +55,11 @@ st.markdown("---")
 
 # --- Display pantry ---
 if not items:
-    st.info("Your pantry is empty. Add your first item above!")
+    st.markdown("""
+    <div style="background:#FAFAF8; border:0.5px solid #E8E8E8; border-radius:10px; padding:1rem 1.25rem; font-family:'Inter',sans-serif; font-size:13px; color:#888;">
+        Your pantry is empty. Add your first item above!
+    </div>
+    """, unsafe_allow_html=True)
 else:
     # Group by category
     categories = sorted(set(i["category"] for i in items))

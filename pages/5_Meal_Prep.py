@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+from utils.theme import apply_theme, page_header
 
 MEAL_PLAN_FILE = "data/meal_plan.json"
 RECIPES_FILE = "data/recipes.json"
@@ -12,9 +13,8 @@ def load_json(filepath):
         return json.load(f)
 
 st.set_page_config(page_title="Meal Prep", page_icon="👨‍🍳", layout="wide")
-st.title("👨‍🍳 Meal Prep")
-st.caption("What to prepare in advance for the week")
-st.markdown("---")
+apply_theme()
+page_header("👨‍🍳", "Meal Prep", "What to prepare in advance for the week")
 
 meal_plan = load_json(MEAL_PLAN_FILE)
 recipes = load_json(RECIPES_FILE)
@@ -95,4 +95,4 @@ else:
 
     if not has_prep:
         st.balloons()
-        st.success("🎉 Great news — none of your meals this week need advance prep!") 
+        st.success("🎉 Great news — none of your meals this week need advance prep!")
